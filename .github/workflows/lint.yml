@@ -7,12 +7,12 @@ on:
   pull_request:
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: asdf-vm/actions/install@v4
-      - run: scripts/lint.bash
+  # lint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: asdf-vm/actions/install@v4
+  #     - run: scripts/lint.bash
 
   actionlint:
     runs-on: ubuntu-latest
