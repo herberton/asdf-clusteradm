@@ -6,6 +6,43 @@ GH_REPO="https://github.com/open-cluster-management-io/clusteradm"
 TOOL_NAME="clusteradm"
 TOOL_TEST="clusteradm version"
 
+# set OS_NAME
+case "$(uname -s | cut -d '-' -f 1)" in
+Linux)
+    OS_NAME="linux"
+    ;;
+Darwin)
+    OS_NAME="darwin"
+    ;;
+MINGW64_NT)
+    OS_NAME="windows"
+    ;;
+*)
+    echo "* Unknown operating system: $(uname -s | cut -d '-' -f 1)"
+    exit 1
+    ;;
+esac
+
+# set OS_ARCH
+case "$(uname -m)" in
+i386)
+    OS_ARCH="386"
+    ;;
+x86_64)
+    OS_ARCH="amd64"
+    ;;
+arm)
+    OS_ARCH="arm"
+    ;;
+arm64|aarch64)
+    OS_ARCH="arm64"
+    ;;
+*)
+    echo "* Unknown architecture: $(uname -m)"
+    exit 1
+    ;;
+esac
+
 fail() {
 	echo -e "asdf-$TOOL_NAME: $*"
 	exit 1
@@ -38,9 +75,9 @@ download_release() {
 	version="$1"
 	filename="$2"
 
-	url="$GH_REPO/archive/v${version}.tar.gz"
+	url="$GH_REPO/archive/v${version}/${TOOL_NAME}_${OS_NAME}_${OS_ARCH}.tar.gz"
 
-	echo "* Downloading $TOOL_NAME release $version (v${version}.tar.gz)..."
+	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
 
