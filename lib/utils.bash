@@ -75,9 +75,9 @@ download_release() {
 	version="$1"
 	filename="$2"
 
-	url="$GH_REPO/archive/v${version}/${TOOL_NAME}_${OS_NAME}_${OS_ARCH}.tar.gz"
+	url="$GH_REPO/releases/download/v${version}/${TOOL_NAME}_${OS_NAME}_${OS_ARCH}.tar.gz"
 
-	echo "* Downloading $TOOL_NAME release $version (${url})..."
+	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
 
